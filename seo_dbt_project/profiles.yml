@@ -1,0 +1,10 @@
+seo_quick_wins:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      # Ruta absoluta: dbt no resuelve rutas relativas de profiles.yml de forma
+      # predecible (las interpreta respecto al CWD, no al proyecto).
+      path: 'C:\Users\LENOVO\Desktop\seo-quick-wins-data-product\seo-quick-wins-data-product\seo_data_product.duckdb'
+      schema: main
+      threads: 1

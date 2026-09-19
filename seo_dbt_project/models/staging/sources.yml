@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: legacy
+    description: "Tablas migradas desde el SQLite legado (migrate_sqlite_to_duckdb.py)"
+    schema: main
+    tables:
+      - name: dim_keyword
+      - name: dim_date
+      - name: fact_keyword_performance
+      - name: raw_keywords

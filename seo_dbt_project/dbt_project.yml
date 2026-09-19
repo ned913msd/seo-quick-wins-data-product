@@ -1,0 +1,17 @@
+name: 'seo_dbt_project'
+version: '1.0.0'
+config-version: 2
+profile: 'seo_quick_wins'
+
+model-paths: ["models"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  seo_dbt_project:
+    +materialized: view
+    staging:
+      +materialized: view
+      +schema: null
+    marts:
+      +materialized: table

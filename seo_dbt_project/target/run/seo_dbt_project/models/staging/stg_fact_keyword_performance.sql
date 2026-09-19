@@ -1,0 +1,19 @@
+
+  
+  create view "seo_data_product"."main"."stg_fact_keyword_performance__dbt_tmp" as (
+    -- Vista staging sobre la fact legacy (fuente: source('legacy', 'fact_keyword_performance'))
+with source as (
+    select * from "seo_data_product"."main"."fact_keyword_performance"
+)
+
+select
+    fact_id,
+    date_id,
+    keyword_id,
+    search_volume,
+    keyword_difficulty,
+    current_position,
+    estimated_ctr,
+    estimated_traffic
+from source
+  );

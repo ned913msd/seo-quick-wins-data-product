@@ -11,6 +11,15 @@ venv/
 *.sqlite
 *.sqlite3
 
+# DuckDB generado por la migración / dbt
+*.duckdb
+*.duckdb.wal
+
+# Artefactos de dbt
+dbt_project/target/
+dbt_project/logs/
+dbt_packages/
+
 # Entorno / IDE
 .freebuff/
 .idea/

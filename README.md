@@ -93,6 +93,33 @@ source venv/Scripts/activate   # Windows (Git Bash)
 
 > ⚠️ dbt aún no soporta Python 3.13/3.14: el script selecciona automáticamente la mejor versión instalada (3.12 → 3.11 → 3.10). El ETL no tiene esta restricción.
 
+### dbt + DuckDB (modelado analítico)
+
+Transformación analítica sobre el warehouse legacy usando dbt con DuckDB (columnar, ideal para análisis local):
+
+1. **Migrar el SQLite legado a DuckDB** (one-off, idempotente):
+
+```bash
+python migrate_sqlite_to_duckdb.py
+```
+
+2. **Construir los modelos dbt** (staging + marts):
+
+```bash
+dbt run --project-dir seo_dbt_project --profiles-dir seo_dbt_project
+```
+
+3. **Consultar el mart de quick wins** (en DBeaver o con DuckDB CLI):
+
+```sql
+SELECT classification, COUNT(*) AS n, SUM(prioridad_score) AS prioridad_total
+FROM main.quick_wins
+GROUP BY 1
+ORDER BY n DESC;
+```
+
+Con el dataset semilla (1.008 keywords) el mart clasifica: **54 QUICK WIN** (pos 4–10, dificultad < 50), **37 YA POSICIONADO** (top 3) y **917 NECESITA TRABAJO**, con `prioridad_score` = tráfico potencial (×5) por keyword.
+
 ### Instalación y Ejecución
 
 1. **Clonar el repositorio:**
@@ -172,6 +199,17 @@ seo-quick-wins-data-product/
 │   ├── etl_seo_pipeline.py            # Pipeline ETL automatizado (CLI)
 │   ├── seo_config.py                  # Configuración central de rutas
 │   └── requirements.txt               # Dependencias
+│
+├── seo_dbt_project/                   # Proyecto dbt (transformación analítica)
+│   ├── dbt_project.yml
+│   ├── profiles.yml                   # Conexión DuckDB
+│   └── models/
+│       ├── staging/                   # stg_fact_keyword_performance + sources
+│       └── marts/quick_wins.sql       # Mart de quick wins (clasificación)
+│
+├── setup.sh                           # Setup del entorno (venv + dbt + pandas)
+├── requirements.txt                   # Dependencias de análisis (dbt, duckdb, pandas)
+├── migrate_sqlite_to_duckdb.py        # Migración one-off SQLite → DuckDB
 │
 ├── docs/
 │   ├── business_case.md               # Caso de negocio completo
