@@ -77,7 +77,7 @@ SELECT
     COALESCE(p.word_count, 0),
     COALESCE(p.indexable, 1),
     p.page_speed_score,
-    SUBSTR(COALESCE(p.loaded_at, 'now'), 1, 10)
+    COALESCE(SUBSTR(p.loaded_at, 1, 10), DATE('now'))
 FROM stg_pages_raw p
 LEFT JOIN dim_page dp ON dp.url = TRIM(p.url)
 WHERE dp.page_id IS NULL
@@ -152,7 +152,7 @@ SELECT
     'noindex',
     'critical',
     0,
-    SUBSTR('now', 1, 10),
+    DATE('now'),
     'open'
 FROM dim_page p
 WHERE p.indexable = 0
@@ -175,7 +175,7 @@ SELECT
     'content_decay',
     CASE WHEN f.position - f.previous_position >= 8 THEN 'high' ELSE 'medium' END,
     0,
-    SUBSTR('now', 1, 10),
+    DATE('now'),
     'open'
 FROM fact_keyword_position f
 JOIN dim_page p ON p.page_id = f.page_id
@@ -186,7 +186,7 @@ WHERE f.position > 0
       SELECT 1 FROM fact_technical_issue i
        WHERE i.page_id = f.page_id
          AND i.issue_type = 'content_decay'
-         AND i.detected_at = SUBSTR('now', 1, 10)
+         AND i.detected_at = DATE('now')
   );
 
 -- ----------------------------------------------------------------------------

@@ -1,5 +1,7 @@
 # SEO Quick Wins — Data Product
 
+[![CI](https://github.com/ned913msd/seo-quick-wins-data-product/actions/workflows/ci.yml/badge.svg)](https://github.com/ned913msd/seo-quick-wins-data-product/actions/workflows/ci.yml)
+
 Producto de datos end-to-end que identifica y prioriza **quick wins de SEO** (oportunidades de mejora rápidas y de alto impacto) a partir de datos del sitio web, y los expone como vistas analíticas listas para consumir en dashboards.
 
 ## 🎯 Objetivo de negocio
@@ -112,6 +114,15 @@ SELECT * FROM vw_position_trends;
 ```bash
 cd python && pytest -v
 ```
+
+### CI (GitHub Actions)
+
+En cada push o PR a `main` corre el workflow `.github/workflows/ci.yml` con dos jobs:
+
+1. **ETL + verificación de calidad**: ejecuta `etl_seo_pipeline.py --full-refresh --verify` (warehouse efímero vía `SEO_DB_PATH`).
+2. **Smoke test SQL**: ejecuta la cadena `01→05` sobre SQLite en memoria con aserciones (`.github/scripts/sql_smoke_test.py`), verificando DDL, datos semilla, el ETL SQL-only y las queries de análisis.
+
+Puedes correr el smoke test localmente con: `python .github/scripts/sql_smoke_test.py`
 
 ## 📄 Licencia
 

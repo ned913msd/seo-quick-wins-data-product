@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  etl-verify:
+    name: ETL + verificación de calidad
+    runs-on: ubuntu-latest
+    env:
+      # Warehouse efímero por corrida (los datos no se versionan)
+      SEO_DB_PATH: /tmp/seo_warehouse.db
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: pip install -r python/requirements.txt
+
+      - name: ETL full-refresh + checks de calidad
+        run: python python/etl_seo_pipeline.py --full-refresh --verify
+
+  sql-smoke:
+    name: Smoke test scripts SQL
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cadena SQL 01→05 + aserciones
+        run: python .github/scripts/sql_smoke_test.py
