@@ -1,0 +1,10 @@
+# SEO Quick Wins — entorno de desarrollo (dbt + análisis)
+# Instalar con: pip install -r requirements.txt
+# (las dependencias del ETL viven aparte en python/requirements.txt)
+#
+# ⚠️ Requiere Python 3.10–3.12: dbt aún no soporta 3.13/3.14.
+#    setup.sh selecciona automáticamente una versión compatible.
+
+dbt-core>=1.7.0
+dbt-sqlite>=1.7.0
+pandas>=2.0.0

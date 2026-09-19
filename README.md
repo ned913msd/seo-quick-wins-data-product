@@ -81,6 +81,18 @@ Desarrollé un **Data Product end-to-end** que combina:
 pip install -r python/requirements.txt
 ```
 
+### Entorno de desarrollo (opcional: dbt + pandas)
+
+`setup.sh` automatiza la configuración: crea el `venv` e instala `dbt-core`, `dbt-sqlite` y `pandas` desde el `requirements.txt` raíz.
+
+```bash
+bash setup.sh                  # crea venv + instala dependencias
+source venv/Scripts/activate   # Windows (Git Bash)
+# source venv/bin/activate     # Linux / macOS
+```
+
+> ⚠️ dbt aún no soporta Python 3.13/3.14: el script selecciona automáticamente la mejor versión instalada (3.12 → 3.11 → 3.10). El ETL no tiene esta restricción.
+
 ### Instalación y Ejecución
 
 1. **Clonar el repositorio:**
