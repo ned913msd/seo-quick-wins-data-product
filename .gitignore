@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# Bases de datos locales (el warehouse vive en BASES DE DATOS DE PRUEBAS)
+*.db
+*.sqlite
+*.sqlite3
+
+# Entorno / IDE
+.freebuff/
+.idea/
+.vscode/
+.DS_Store
+
+# Exports de datos crudos (no versionar datos)
+exports/
+*.csv
+!sql/**/*.csv

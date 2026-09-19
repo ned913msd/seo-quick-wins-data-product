@@ -1,0 +1,8 @@
+# SEO Quick Wins — ETL dependencies
+# Instalar con: pip install -r requirements.txt
+
+# Conector PostgreSQL (opcional: solo si se usa PG_HOST en vez de SQLite)
+psycopg2-binary>=2.9.9
+
+# Utilidades
+python-dotenv>=1.0.1
