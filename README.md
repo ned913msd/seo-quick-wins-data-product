@@ -109,6 +109,22 @@ python migrate_sqlite_to_duckdb.py
 dbt run --project-dir seo_dbt_project --profiles-dir seo_dbt_project
 ```
 
+3. **Validar calidad de datos** (tests declarados en `models/marts/schema.yml`):
+
+```bash
+dbt test --project-dir seo_dbt_project --profiles-dir seo_dbt_project
+# PASS=5: not_null + unique en keyword_id, not_null en keyword_text y
+# oportunidad_mejora, accepted_values en classification
+```
+
+4. **Generar y explorar la documentación** (catálogo + linaje interactivo):
+
+```bash
+dbt docs generate --project-dir seo_dbt_project --profiles-dir seo_dbt_project
+dbt docs serve --project-dir seo_dbt_project --profiles-dir seo_dbt_project
+# → http://localhost:8080
+```
+
 3. **Consultar el mart de quick wins** (en DBeaver o con DuckDB CLI):
 
 ```sql
@@ -205,7 +221,7 @@ seo-quick-wins-data-product/
 │   ├── profiles.yml                   # Conexión DuckDB
 │   └── models/
 │       ├── staging/                   # stg_fact_keyword_performance + sources
-│       └── marts/quick_wins.sql       # Mart de quick wins (clasificación)
+│       └── marts/                     # quick_wins.sql + schema.yml (tests)
 │
 ├── setup.sh                           # Setup del entorno (venv + dbt + pandas)
 ├── requirements.txt                   # Dependencias de análisis (dbt, duckdb, pandas)
@@ -237,7 +253,7 @@ Este proyecto demuestra habilidades de Analytics Engineer y Data Product Manager
 - ✅ **SQL Avanzado:** CTEs, Window Functions (`ROW_NUMBER`), JOINs complejos, upserts portables
 - ✅ **Modelado de Datos:** Esquema Estrella (Star Schema), capas staging → core → vistas
 - ✅ **Python ETL:** Extracción, transformación y carga automatizada con CLI (`--full-refresh`, `--verify`, `--csv-dir`)
-- ✅ **Data Quality:** Contratos de datos, validación en Transform y 5 checks post-carga
+- ✅ **Data Quality:** Contratos de datos, validación en Transform, 5 checks post-carga y tests dbt (`not_null`, `unique`, `accepted_values`)
 - ✅ **CI/CD:** GitHub Actions ejecutando ETL + smoke test en cada push
 - ✅ **Business Intelligence:** KPIs, métricas de ROI, priorización ICE
 - ✅ **Product Thinking:** De problema de negocio → solución técnica → valor medible

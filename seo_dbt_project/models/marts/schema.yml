@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: quick_wins
+    description: "Modelo que identifica Quick Wins en SEO basado en posición, dificultad y tráfico potencial. Clasifica las keywords para priorizar esfuerzos de optimización."
+    columns:
+      - name: keyword_id
+        description: "ID único de la palabra clave"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: keyword_text
+        description: "El texto de la palabra clave"
+        data_tests:
+          - not_null
+
+      - name: classification
+        description: "Categoría de la keyword: QUICK WIN, YA POSICIONADO, o NECESITA TRABAJO"
+        data_tests:
+          - accepted_values:
+              arguments:  # sintaxis dbt >= 1.11 (evita la deprecación)
+                values: ['🎯 QUICK WIN', '✅ YA POSICIONADO', '⚠️ NECESITA TRABAJO']
+
+      - name: oportunidad_mejora
+        description: "Tráfico adicional estimado si la keyword sube al Top 3"
+        data_tests:
+          - not_null
