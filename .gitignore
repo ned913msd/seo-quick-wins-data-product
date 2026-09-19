@@ -15,9 +15,10 @@ venv/
 *.duckdb
 *.duckdb.wal
 
-# Artefactos de dbt
-dbt_project/target/
-dbt_project/logs/
+# Artefactos de dbt (target/, logs/ y estado de usuario)
+seo_dbt_project/target/
+seo_dbt_project/logs/
+seo_dbt_project/.user.yml
 dbt_packages/
 
 # Entorno / IDE
