@@ -21,6 +21,9 @@ seo_dbt_project/logs/
 seo_dbt_project/.user.yml
 dbt_packages/
 
+# Logs locales de servidores (dbt docs serve, etc.)
+*.log
+
 # Entorno / IDE
 .freebuff/
 .idea/
