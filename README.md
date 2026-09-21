@@ -264,8 +264,8 @@ Este proyecto demuestra habilidades de Analytics Engineer y Data Product Manager
 
 **David NED Bustamante**
 
-📧 ned913msd@gmail.com
-🔗 LinkedIn — *(añade aquí tu URL)*
+📧 contacto.nedbustamante@gmail.com
+🔗 [LinkedIn](https://www.linkedin.com/in/nedbustamante/)
 📍 Medellín, Colombia
 
 **Data Product Manager | Analytics Engineer | Full Stack Developer**
